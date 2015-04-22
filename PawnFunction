@@ -46,3 +46,17 @@ function makePawns() {
 
 
 makePawns();
+
+
+
+function movement(oldPosition, newPosition) {
+	if(oldPosition === 0) {
+		return "There is no piece here.";
+	}
+	else {
+		oldArray = oldPosition[0];
+		newArray = newPosition[0];
+		newPosition[1] = 0;
+		return "Piece moved.";
+	}
+}
