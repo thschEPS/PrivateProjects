@@ -26,7 +26,7 @@ var board = {
 };
 
 
-function Pawn (position, color) {
+function Pawn(position, color) {
   this.position = position;
   this.color = color;
 }
@@ -50,7 +50,7 @@ makePawns();
 
 
 function movement(oldPosition, newPosition) {
-	if(oldPosition === 0) {
+	if(oldPosition[1] === 0) {
 		return "There is no piece here.";
 	}
 	else {
