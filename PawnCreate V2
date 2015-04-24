@@ -1,56 +1,52 @@
-var board = {
-  A: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ],
-  B: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ],
-  C: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ], 
-  D: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ],
-  E: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ], 
-  F: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ], 
-  G: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ], 
-  H: [
-    0, 0, 0, 0, 0, 0, 0, 0
-  ]
-};
-
-
+var board = [
+  A = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, B = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, C = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, D = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, E = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, F = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, G = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }, H = {
+    values: [0, 0, 0, 0, 0, 0, 0, 0]
+  }];
 
 function Pawn (position) {
   this.position = position;
 }
 
-
-
 function makePawns() {
-  var color = [board.B, board.G];
+  var color = [board[1].values, board[6].values];
   for (var e = 0; e < 2; e++) {
+    //e denotes color
     for (var i = 0; i < 9; i++) {
+      //i denotes array it is in
   var pawn = new Pawn(color[e[i]]);
       if (e === 0) {
         color[e][i] = "BP" + i; 
       } else {
         color[e][i] = "WP" + i; 
       }
-    //console.log(board.B[i]);
   
   }
   }
-  
-    console.log(board);
+  for (var a = 0; a < 8; a++) {
+    console.log(board[a].values);
+  }
+    
 }
 
 
 
 makePawns();
+
+
+
+  //console.log(board[i].values);
+
