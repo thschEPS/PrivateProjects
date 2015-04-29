@@ -1,31 +1,21 @@
-var board = [
-  A = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, B = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, C = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, D = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, E = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, F = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, G = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }, H = {
-    values: [0, 0, 0, 0, 0, 0, 0, 0]
-  }];
+var board = [[0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0]];
 
 function Pawn (position) {
   this.position = position;
 }
 
 function makePawns() {
-  var color = [board[1].values, board[6].values];
+  var color = [board[1], board[6]]; 
   for (var e = 0; e < 2; e++) {
     //e denotes color
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 8; i++) {
       //i denotes array it is in
   var pawn = new Pawn(color[e[i]]);
       if (e === 0) {
@@ -37,11 +27,14 @@ function makePawns() {
   }
   }
   for (var a = 0; a < 8; a++) {
-    console.log(board[a].values);
+    console.log(board[a]);
   }
     
 }
 
+Pawn.prototype.move = function(position) {
+    console.log(position); 
+};
 
 
 makePawns();
@@ -49,4 +42,3 @@ makePawns();
 
 
   //console.log(board[i].values);
-
