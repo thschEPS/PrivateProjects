@@ -1,0 +1,71 @@
+var board = [[0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0]];
+
+function Pawn (position) {
+  this.position = position;
+}
+
+function makePawns() {
+  var color = [board[1], board[6]]; 
+  for (var e = 0; e < 2; e++) {
+    //e denotes color
+    for (var i = 0; i < 8; i++) {
+      //i denotes array it is in
+  var pawn = new Pawn(color[e[i]]);
+      if (e === 0) {
+        color[e][i] = "BP" + i; 
+      } else {
+        color[e][i] = "WP" + i; 
+      }
+  
+  }
+  }
+  for (var a = 0; a < 8; a++) {
+    //console.log(board[a]);
+  }
+    
+}
+
+
+
+makePawns();
+
+
+
+function pawnMove(piece) {
+  var pieces = [];
+  for (var i = 0; i < 8; i++) {
+    for (var j = 0; j < 8; j++) {
+      if (board[i][j] === piece) {
+       
+        var l = i++;
+        pieces.push(board[i][j]);
+        pieces.push(board[l][j]);
+        board[l][j] = pieces[0];
+        board[i][j] = pieces[1];
+       
+        
+        for (var k = 0; k < 8; k++) {
+    console.log(board[k]);
+  }
+               
+      }
+    }
+      
+  }
+}
+
+
+
+pawnMove('BP1');
+
+
+
+
+  //console.log(board[i].values);
