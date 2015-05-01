@@ -8,3 +8,27 @@ function Board(){
 								[0, 0, 0, 0, 0, 0, 0, 0],
 								[0, 0, 0, 0, 0, 0, 0, 0]];
 }
+
+Board.prototype.drawBoard = function() {
+  var aBoard = document.getElementById("board");
+  this.layout.forEach(function(row) {
+	addRow(aBoard, indexOf(row));
+  });
+
+function addRow(board, row) {
+  var aRow = document.createElement("Div");
+  this.layout[row].forEach(function(square) {
+    addSquare(board, aRow, indexOf(square));
+  });
+  board.appendChild(aRow);
+}
+
+function addSquare(board, row, square) {
+  var aDiv = document.createElement("Div");
+  aDiv.innerHTML = 0;
+  row.appendChild(aDiv);
+}
+}
+
+var thisBoard = new Board();
+thisBoard.drawBoard();
