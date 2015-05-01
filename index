@@ -5,63 +5,9 @@
 	<script type="text/javascript" src="board_test.js"></script>
 	</head>
 	<body>
-	<p id="board"></p> 
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[0];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[1];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[2];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[3];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[4];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[5];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[6];
-		</script>
-	</div>
-	<div>
-		<script>
-			var board = document.getElementById("board"),
-				boardArray = new Board();
-			board.innerHTML = boardArray.layout[7];
-		</script>
-	</div>
-	
+	 
+	<div id="board">
+	</div>	
 	</body>
+	
 </html>
