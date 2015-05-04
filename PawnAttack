@@ -1,16 +1,32 @@
-var board = [
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 'R1', 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0]
-];
+var board = [[0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0], 
+             [0, 0, 0, 0, 0, 0, 0, 0]];
 
-function Pawn(position) {
+
+
+function Piece(position) {
     this.position = position;
+    Object.defineProperty(this, 'color', {
+        get: function() {
+            var hold = this.position,
+                holdTwo = this.position.substring(0, 1);
+            if (holdTwo === 'W') {
+                return 'White';
+            } else if (holdTwo === 'B') {
+                return 'Black';
+            }
+        }
+    });
+}
+
+function Pawn (position) {
+  this.position = position;
+  Piece.call(this, color);
 }
 
 function makePawns() {
@@ -35,14 +51,12 @@ function makePawns() {
 }
 
 
-
-makePawns();
-
-
-function pawnAttack(piece, pieceToAttack) {
+Pawn.prototype = Object.create(Piece.prototype);
+  
+Pawn.prototype.attack = function (piece, pieceToAttack) {
     var pieces = [];
-    for (var i = 0; i < 8; i++) {
-        for (var j = 0; j < 8; j++) {
+    board.forEach(function(entry) {
+      for (var j = 0; j < 8; j++) {
             if (board[i][j] === piece) {
                 for (var n = 0; n < 8; n++) {
                     for (var m = 0; m < 8; m++) {
@@ -59,21 +73,16 @@ function pawnAttack(piece, pieceToAttack) {
 
             }
         }
-    }
-    display();
-}
+    });
+  
+    board.forEach(function(entry) {
+      console.log(entry);
+    });
+};
 
-function display() {
-    for (var i = 0; i < 8; i++) {
-        console.log(board[i]);
-    }
-}
+//How do I call this if I used a for loop to creat the pawns?
 
-
-
-pawnAttack('WP4', board[5][4]);
+Pawn.attack('WP4', board[5][4]);
 
 
-
-
-//console.log(board[i].values);
+makePawns();
