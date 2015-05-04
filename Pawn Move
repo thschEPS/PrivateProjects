@@ -26,6 +26,7 @@ function Piece(position) {
 
 function Pawn (position) {
   this.position = position;
+  Piece.call(this, color);
 }
 
 Pawn.prototype = Object.create(Piece.prototype);
@@ -78,6 +79,3 @@ function makePawns() {
 
 
 makePawns();
-
-
-
