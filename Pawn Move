@@ -1,4 +1,4 @@
-var board = [[0, 0, 0, 0, 0, 0, 0, 0], 
+var board = [['BP', 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0], 
@@ -7,75 +7,36 @@ var board = [[0, 0, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0]];
 
-
-
-function Piece(position) {
-    this.position = position;
-    Object.defineProperty(this, 'color', {
-        get: function() {
-            var hold = this.position,
-                holdTwo = this.position.substring(0, 1);
-            if (holdTwo === 'W') {
-                return 'White';
-            } else if (holdTwo === 'B') {
-                return 'Black';
-            }
-        }
-    });
-}
-
 function Pawn (position) {
   this.position = position;
-  Piece.call(this, color);
 }
 
-Pawn.prototype = Object.create(Piece.prototype);
-
-Pawn.prototype.move = function(piece) {
-  var pieces = [];
-  for (var i = 0; i < 8; i++) {
-    for (var j = 0; j < 8; j++) {
-      if (board[i][j] === piece) {
-       
-        var l = i++;
-        pieces.push(board[i][j]);
-        pieces.push(board[l][j]);
-        board[l][j] = pieces[0];
-        board[i][j] = pieces[1];
-       
-        
-        for (var k = 0; k < 8; k++) {
-    console.log(board[k]);
-  }
-               
-      }
-    }
-      
-  }
+Pawn.prototype.move = function (position) {
+  var coordinates = search(position, 0);
+  //Swich piece
 };
 
-  
-function makePawns() {
-  var color = [board[1], board[6]]; 
-  for (var e = 0; e < 2; e++) {
-    //e denotes color
-    for (var i = 0; i < 8; i++) {
-      //i denotes array it is in
-  var pawn = new Pawn(color[e[i]]);
-      if (e === 0) {
-        color[e][i] = "BP" + i; 
-      } else {
-        color[e][i] = "WP" + i; 
-      }
-  
+function search(piece, column) {
+  if (!column) {
+    // This statement allows you to omit the column parameter.
+    // So you can call 'search(9);' and it will assume the column is 0.
+    column = 0;
   }
+  if (column >= board.length) {
+    console.log('Piece is not present');
+    return null;
   }
-  board.forEach(function(entry) {
-  console.log(entry);
-});
-    
+  if (_.contains(board[column], piece)) {
+    var coordinates = [_.indexOf(board[column], piece), column];
+    console.log(coordinates);
+    return coordinates;
+  } else {
+    return search(piece, column + 1);
+  }
 }
-
 
 
 makePawns();
+
+var pawn = new Pawn (board[0][0]);
+
