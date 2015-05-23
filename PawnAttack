@@ -1,88 +1,57 @@
-var board = [[0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0]];
+//Get buttons integrated so their is user choice  
+var grid = [
+  [0,0,0],
+  [0,0,0],
+  [0,0,0]
+];
 
+//Using Can.JS to simplify inheritance and polymorphism. 
 
+var Piece = can.Construct.extend({
+}, {
+    init: function(x, y) {
+        this.x = x;
+        this.y = y;
+        this.position = grid[x][y];        
+    }, 
+  move: function() {
+    var pieceList = [];
+  pieceList.push(grid[this.x][this.y]);
+  this.column = this.y + 1;
+  pieceList.push(grid[this.column][this.x]);
+  grid[this.column][this.x] = pieceList[0]; 
+  grid[this.x][this.y] = pieceList[1];
+    display();
+  }, 
+  //Use Underscore JS to make finding the piece much easier
+  attack: function() {
+   this.direction = confirm("Press a button!");
+if (this.direction === true) {
+    alert('Left');
+} else {
+    alert('Right');
+}
+  }
+});
 
-function Piece(position) {
-    this.position = position;
-    Object.defineProperty(this, 'color', {
-        get: function() {
-            var hold = this.position,
-                holdTwo = this.position.substring(0, 1);
-            if (holdTwo === 'W') {
-                return 'White';
-            } else if (holdTwo === 'B') {
-                return 'Black';
-            }
-        }
-    });
+function createPawns() {
+  var pieceSetUp = [];
+  for (var i = 0; i < 3; i++) {
+  var pawn = new Piece(i, i);
+  grid[i][i] = 'P' + i;
+  pieceSetUp.push(pawn);
+  }
+  display();
+  return pieceSetUp;
 }
 
-function Pawn (position) {
-  this.position = position;
-  Piece.call(this, color);
+function display() {
+  console.log('_______');
+  for (var e = 0; e < 3; e++) { 
+  console.log(grid[e]);
+  }
 }
 
-function makePawns() {
-    var color = [board[1], board[6]];
-    for (var e = 0; e < 2; e++) {
-        //e denotes color
-        for (var i = 0; i < 8; i++) {
-            //i denotes array it is in
-            var pawn = new Pawn(color[e[i]]);
-            if (e === 0) {
-                color[e][i] = "BP" + i;
-            } else {
-                color[e][i] = "WP" + i;
-            }
+var pieceSetUp = createPawns();
 
-        }
-    }
-    for (var a = 0; a < 8; a++) {
-        //console.log(board[a]);
-    }
-
-}
-
-
-Pawn.prototype = Object.create(Piece.prototype);
-  
-Pawn.prototype.attack = function (piece, pieceToAttack) {
-    var pieces = [];
-    board.forEach(function(entry) {
-      for (var j = 0; j < 8; j++) {
-            if (board[i][j] === piece) {
-                for (var n = 0; n < 8; n++) {
-                    for (var m = 0; m < 8; m++) {
-                        if (board[n][m] === pieceToAttack) {
-                            console.log(board[n][m]);
-                            board[n][m] = 0;
-                            pieces.push(board[n][m]);
-                            pieces.push(board[i][j]);
-                            board[n][m] = pieces[1];
-                            board[i][j] = pieces[0];
-                        }
-                    }
-                }
-
-            }
-        }
-    });
-  
-    board.forEach(function(entry) {
-      console.log(entry);
-    });
-};
-
-//How do I call this if I used a for loop to creat the pawns?
-
-Pawn.attack('WP4', board[5][4]);
-
-
-makePawns();
+(pieceSetUp[0].attack());
