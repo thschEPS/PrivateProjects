@@ -1,5 +1,5 @@
 var board = [['BP', 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
+             ['E', 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0], 
@@ -7,14 +7,22 @@ var board = [['BP', 0, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0], 
              [0, 0, 0, 0, 0, 0, 0, 0]];
 
-function Pawn (position) {
-  this.position = position;
-}
 
-Pawn.prototype.move = function (position) {
-  var coordinates = search(position, 0);
-  //Swich piece
-};
+function move (position) {
+  var coordinates = search(position, 0),
+      swapColumn = coordinates[1] + 1,
+      swapCoordinates = [swapColumn, coordinates[0]],
+      swapHold = board[swapCoordinates[0]][swapCoordinates[1]];
+      if (board[swapCoordinates[0]][swapCoordinates[1]] !== 0) {
+        alert('Beep');
+      } else {
+        board[swapCoordinates[0]][swapCoordinates[1]] = position; 
+        board[coordinates[0]][coordinates[1]] = swapHold;
+      }
+ for (var i = 0; i < 8; i ++) {
+   console.log(board[i]);
+ }
+}
 
 function search(piece, column) {
   if (!column) {
@@ -27,8 +35,7 @@ function search(piece, column) {
     return null;
   }
   if (_.contains(board[column], piece)) {
-    var coordinates = [_.indexOf(board[column], piece), column];
-    console.log(coordinates);
+    var coordinates = [column, _.indexOf(board[column], piece)];
     return coordinates;
   } else {
     return search(piece, column + 1);
@@ -36,7 +43,8 @@ function search(piece, column) {
 }
 
 
-makePawns();
+move(board[0][0]);
 
-var pawn = new Pawn (board[0][0]);
+
+
 
