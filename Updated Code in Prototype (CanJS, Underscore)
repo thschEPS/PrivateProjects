@@ -1,0 +1,103 @@
+//Get buttons integrated so their is user choice  
+var grid = [
+    [' E', ' E', ' E', ' E'],
+    [' E', ' E', ' E', ' E'],
+    [' E', ' E', ' E', ' E'],
+    [' E', ' E', ' E', ' E'],
+];
+
+//Using Can.JS to simplify inheritance and polymorphism. 
+
+var Piece = can.Construct.extend({}, {
+    init: function(x, y) {
+        this.x = x;
+        this.y = y;
+        this.column = y + 1;
+        this.rightRow = x + 1;
+        this.leftRow = x - 1;
+        this.position = grid[y][x];
+
+
+    },
+    move: function() {
+        var pieceList = [];
+        pieceList.push(grid[this.y][this.x]);
+        pieceList.push(grid[this.column][this.x]);
+        grid[this.column][this.x] = pieceList[0];
+        grid[this.y][this.x] = pieceList[1];
+        display();
+    },
+    //Use Underscore JS to make finding the piece much easier
+    attack: function() {
+        this.direction = confirm("OK for Right, Cancel for Left");
+        //Allows user input, whether they want to go left or right
+        if (this.direction === true) {
+            if (grid[this.column][this.rightRow] !== ' E') {
+                //Checks to see board spot is empty before attacking
+                if (_.indexOf(grid[this.y], this.x) !== 0) {
+                    //UnderscoreJS makes sure the pieces is not moving off the board 
+                    var rightPieceList = [grid[this.y][this.x], grid[this.column][this.rightRow]];
+                    grid[this.y][this.x] = ' E';
+                    grid[this.column][this.rightRow] = rightPieceList[0];
+
+                    this.x = this.rightRow;
+                    this.y = this.column;
+                    rightPieceList.length = 0;
+
+
+                    display();
+
+                } else {
+                    console.log('You have approached the edge of the board');
+                }
+            } else {
+                console.log('No piece here, try moving again');
+
+            }
+        } else {
+            if (grid[this.column][this.leftRow] !== ' E') {
+                //Checks to see board spot is empty before attacking
+                if (_.indexOf(grid[this.y], this.x) !== 0) {
+                    //UnderscoreJS makes sure the pieces is not moving off the board 
+                    var leftPieceList = [grid[this.y][this.x], grid[this.column][this.leftRow]];
+                    grid[this.y][this.x] = ' E';
+                    grid[this.column][this.leftRow] = leftPieceList[0];
+
+                    this.x = this.leftRow;
+                    this.y = this.column;
+                    leftPieceList.length = 0;
+                  
+                    display();
+                } else {
+                    console.log('You have approached the edge of the board');
+                }
+            } else {
+                console.log('No piece here, try moving again');
+
+            
+            }
+        }
+    }
+});
+
+function createPawns() {
+    var pieceSetUp = [];
+    for (var i = 0; i < grid.length; i++) {
+        var pawn = new Piece(0, i);
+        var pawnNum = i + 1;
+        grid[0][i] = 'P' + pawnNum;
+        pieceSetUp.push(pawn);
+    }
+    display();
+    return pieceSetUp;
+}
+
+function display() {
+    console.log('_______');
+    for (var e = 0; e < grid.length; e++) {
+        console.log(grid[e]);
+    }
+}
+
+var pieceSetUp = createPawns();
+
