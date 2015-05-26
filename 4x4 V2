@@ -1,8 +1,8 @@
 //Get buttons integrated so their is user choice  
 var grid = [
     [' E ', ' E ', ' E ', ' E '],
-    [' E ', ' R ', ' E ', ' E '],
     [' E ', ' E ', ' E ', ' E '],
+    [' E ', ' E ', ' E ', ' G '],
     [' E ', ' E ', ' E ', ' E ']
 ];
 
@@ -13,6 +13,7 @@ var Piece = can.Construct.extend({}, {
         this.y = y;
         this.x = x;
         this.initialPosition = initialPosition;
+        
         this.rightColumn = y + 1;
         this.leftColumn = y - 1;
         this.position = grid[x][y];
@@ -58,31 +59,25 @@ var Piece = can.Construct.extend({}, {
         this.direction = false; //confirm("OK for Left, Cancel for Right");
         //Allows user input, whether they want to go left or right
         if (this.direction === false) {
-            if (grid[this.rightColumn][this.row] !== ' E ') {
-              if (this.y === 0) {
-                console.log('You have approached the edge of the board');
-              } else if (_.indexOf(grid[this.x], this.y) !== 0) {
+            if (grid[this.row][this.rightColumn] !== ' E ') {
+               if (_.indexOf(grid[this.x], this.y) !== 0) {
                     //UnderscoreJS makes sure the pieces is not moving off the board 
                     var rightPieceList = [grid[this.x][this.y], grid[this.row][this.rightColumn]];
-                    grid[this.x][this.y] = ' E';
+                    grid[this.x][this.y] = ' E ';
                     grid[this.row][this.rightColumn] = rightPieceList[0];
-
                     this.y = this.rightColumn;
                     this.x = this.row;
                     rightPieceList.length = 0;
 
-
                     display();
 
-                } else {
-                    console.log('You have approached the edge of the board');
-                }
+                } 
             } else {
                 console.log('No piece here, try moving again');
             
             }
         } else {
-          if (grid[this.row][this.leftColumn] !== ' E') {
+          if (grid[this.row][this.leftColumn] !== ' E ') {
             console.log('No piece to move here');
           } else {
             if (this.y === 3) {
@@ -93,15 +88,14 @@ var Piece = can.Construct.extend({}, {
                     var leftPieceList = [grid[this.x][this.y], grid[this.row][this.leftColumn]];
                     grid[this.x][this.y] = ' E';
                     grid[this.row][this.leftColumn] = leftPieceList[0];
-
                     this.y = this.leftColumn;
                     this.x = this.row;
                     leftPieceList.length = 0;
-
                     display();
                 } else {
                     console.log('You have approached the edge of the board');
                 } 
+            
           }
         }
 }});
