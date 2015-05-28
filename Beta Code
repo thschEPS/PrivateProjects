@@ -68,7 +68,11 @@ var Piece = can.Construct.extend({}, {
                     this.y = this.rightColumn;
                     this.x = this.row;
                     rightPieceList.length = 0;
-
+                    pieceSetUp.forEach(function (entry) {
+                      if (entry.position === grid[this.x][this.y]) {
+                        pieceSetUp.splice(entry);
+                      }
+                    });
                     display();
 
                 } 
@@ -91,6 +95,11 @@ var Piece = can.Construct.extend({}, {
                     this.y = this.leftColumn;
                     this.x = this.row;
                     leftPieceList.length = 0;
+                    pieceSetUp.forEach(function (entry) {
+                      if (entry.position === grid[this.x][this.y]) {
+                        pieceSetUp.splice(entry);
+                      }
+                    });
                     display();
                 } else {
                     console.log('You have approached the edge of the board');
