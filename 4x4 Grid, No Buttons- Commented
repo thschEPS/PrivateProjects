@@ -1,0 +1,134 @@
+//Get buttons integrated so their is user choice  
+var grid = [
+    [' E ', ' E ', ' E ', ' E '],
+    [' E ', ' E ', ' E ', ' E '],
+    [' E ', ' E ', ' E ', ' G '],
+    [' E ', ' E ', ' E ', ' E ']
+];
+
+//Using Can.JS to simplify inheritance and polymorphism. 
+
+var Piece = can.Construct.extend({}, { //Uses Can.js to simplify
+    init: function(x, y, initialPosition) { //creates function init with parameters
+        this.y = y;
+        this.x = x;
+        this.initialPosition = initialPosition; //sets all of the parameters to properties
+        
+        this.rightColumn = y + 1;
+        this.leftColumn = y - 1;
+        this.position = grid[x][y]; //sets position to grid indices
+        this.color = Object.defineProperty(this, 'color', { 
+        get: function() {
+            if (initialPosition === true) {
+                return 'White';
+            } else if (initialPosition === false) {
+                return 'Black';
+            }
+        }
+    }); //sets the colors for the pieces constructed
+       this.row = Object.defineProperty(this, 'row', { 
+        get: function() {
+        if (this.color === 'White') {
+          return x + 1;
+        } else if (this.color === 'Black'){
+          return x - 1; 
+        }
+      }
+  }); //sets row positions of the pieces constructed
+      
+
+    },
+    move: function() {
+      //Decides the direction the pawn can move based on color
+       
+        var pieceList = [];
+        if (grid[this.row][this.y] !== " E ") {
+            console.log('You cannot move here');
+        } else {
+            pieceList.push(grid[this.x][this.y]);
+            pieceList.push(grid[this.row][this.y]);
+            grid[this.row][this.y] = pieceList[0];
+            grid[this.x][this.y] = pieceList[1];
+            display();
+            pieceList.length = 0;
+        }        
+    },
+  
+    //Use Underscore JS to make finding the piece much easier
+    attack: function() {
+        this.direction = false; //confirm("OK for Left, Cancel for Right");
+        //Allows user input, whether they want to go left or right
+        if (this.direction === false) {
+            if (grid[this.row][this.rightColumn] !== ' E ') {
+               if (_.indexOf(grid[this.x], this.y) !== 0) {
+                    //UnderscoreJS makes sure the pieces is not moving off the board 
+                    var rightPieceList = [grid[this.x][this.y], grid[this.row][this.rightColumn]];
+                    grid[this.x][this.y] = ' E ';
+                    grid[this.row][this.rightColumn] = rightPieceList[0];
+                    this.y = this.rightColumn;
+                    this.x = this.row;
+                    rightPieceList.length = 0;
+
+                    display();
+
+                } 
+            } else {
+                console.log('No piece here, try moving again');
+            
+            }
+        } else {
+          if (grid[this.row][this.leftColumn] !== ' E ') {
+            console.log('No piece to move here');
+          } else {
+            if (this.y === 3) {
+                console.log('You have approached the edge of the board');
+              }
+                if (_.indexOf(grid[this.x], this.y) !== 3) {
+                    //UnderscoreJS makes sure the pieces is not moving off the board 
+                    var leftPieceList = [grid[this.x][this.y], grid[this.row][this.leftColumn]];
+                    grid[this.x][this.y] = ' E';
+                    grid[this.row][this.leftColumn] = leftPieceList[0];
+                    this.y = this.leftColumn;
+                    this.x = this.row;
+                    leftPieceList.length = 0;
+                    display();
+                } else {
+                    console.log('You have approached the edge of the board');
+                } 
+            
+          }
+        }
+}});
+
+function createPawns() { //pawn constructor function
+    var pieceSetUp = [];
+  //Separate For Loops creates pawns at opposite sides of the board
+    for (var i = 0; i < 4; i++) {
+        var whitePawn = new Piece(0, i, true);
+        var whitePawnNum = i + 1;
+        grid[0][i] = 'WP' + whitePawnNum;
+        pieceSetUp.push(whitePawn);
+    }
+    for (var e = 3; e > -1; e--) {
+        var blackPawn = new Piece(3, e, false);
+        var blackPawnNum = e + 1;
+        grid[3][e] = 'BP' + blackPawnNum;
+        pieceSetUp.push(blackPawn);
+    }
+    display();
+    return pieceSetUp;
+}
+
+//Display each row of the board with a for loop
+function display() {
+    console.log('_______');
+    for (var e = 0; e < 4; e++) {
+        console.log(grid[e]);
+    }
+}
+
+var pieceSetUp = createPawns(); //creates a new chess setting
+
+
+
+pieceSetUp[5].attack();
