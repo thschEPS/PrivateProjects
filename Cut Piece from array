@@ -1,5 +1,5 @@
 pieceSetUp.forEach(function (entry) {
                       if (entry.position === grid[this.x][this.y]) {
-                        pieceSetUp.splice(entry);
+                        _.withOut(pieceSetUp, entry);
                       }
                     });
