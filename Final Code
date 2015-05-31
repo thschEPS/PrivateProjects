@@ -25,6 +25,7 @@ var Piece = can.Construct.extend({
         });
 
     },
+//Search Scanner to be used when there are more pieces to see if the piece can move there and if there are piece there
     search: function search(num, column) {
         if (!column) {
             // This statement allows you to omit the column parameter.
