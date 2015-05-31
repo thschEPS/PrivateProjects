@@ -74,9 +74,9 @@ var Pawn = Piece.extend({
                     this.x = this.row;
                     rightPieceList.length = 0;
                     //CUts piece out of game so it cannot move. 
-                    for (var i = 0; i < pieceSetUp.length; i++) {
-                      if (pieceSetUp[i].position === rightPieceList[0]){
-                        var index = _.indexOf(pieceSetUp,pieceSetUp[i]);
+                    for (var e = 0; e < pieceSetUp.length; e++) {
+                      if (pieceSetUp[e].position === rightPieceList[0]){
+                        var index = _.indexOf(pieceSetUp,pieceSetUp[e]);
                         if (index > -1) {
                           pieceSetUp.splice(index, 1);
                           
@@ -103,9 +103,9 @@ var Pawn = Piece.extend({
                     grid[this.x][this.y] = ' E ';
                     for (var i = 0; i < pieceSetUp.length; i++) {
                       if (pieceSetUp[i].position === leftPieceList[0]){
-                        var index = _.indexOf(pieceSetUp,pieceSetUp[i]);
-                        if (index > -1) {
-                          pieceSetUp.splice(index, 1);
+                        var leftIndex = _.indexOf(pieceSetUp,pieceSetUp[i]);
+                        if (leftIndex > -1) {
+                          pieceSetUp.splice(leftIndex, 1);
                           
                         }
                       }
