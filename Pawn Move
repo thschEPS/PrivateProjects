@@ -1,49 +1,18 @@
-var board = [['BP', 0, 0, 0, 0, 0, 0, 0], 
-             ['E', 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0]];
-
-
-function move (position) {
-  var coordinates = search(position, 0),
-      swapColumn = coordinates[1] + 1,
-      swapCoordinates = [swapColumn, coordinates[0]],
-      swapHold = board[swapCoordinates[0]][swapCoordinates[1]];
-      if (board[swapCoordinates[0]][swapCoordinates[1]] !== 0) {
-        alert('Beep');
-      } else {
-        board[swapCoordinates[0]][swapCoordinates[1]] = position; 
-        board[coordinates[0]][coordinates[1]] = swapHold;
-      }
- for (var i = 0; i < 8; i ++) {
-   console.log(board[i]);
- }
-}
-
-function search(piece, column) {
-  if (!column) {
-    // This statement allows you to omit the column parameter.
-    // So you can call 'search(9);' and it will assume the column is 0.
-    column = 0;
-  }
-  if (column >= board.length) {
-    console.log('Piece is not present');
-    return null;
-  }
-  if (_.contains(board[column], piece)) {
-    var coordinates = [column, _.indexOf(board[column], piece)];
-    return coordinates;
-  } else {
-    return search(piece, column + 1);
-  }
-}
-
-
-move(board[0][0]);
+move: function() {
+      //Decides the direction the pawn can move based on color
+       
+        var pieceList = [];
+        if (grid[this.row][this.y] !== " E ") {
+            console.log('You cannot move here');
+        } else {
+            pieceList.push(grid[this.x][this.y]);
+            pieceList.push(grid[this.row][this.y]);
+            grid[this.row][this.y] = pieceList[0];
+            grid[this.x][this.y] = pieceList[1];
+            display();
+            pieceList.length = 0;
+        }        
+    }
 
 
 
