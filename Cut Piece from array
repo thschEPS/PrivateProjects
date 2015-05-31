@@ -1,5 +1,9 @@
-pieceSetUp.forEach(function (entry) {
-                      if (entry.position === grid[this.x][this.y]) {
-                        _.withOut(pieceSetUp, entry);
+for (var i = 0; i < pieceSetUp.length; i++) {
+                      if (pieceSetUp[i].position === rightPieceList[0]){
+                        var index = _.indexOf(pieceSetUp,pieceSetUp[i]);
+                        if (index > -1) {
+                          pieceSetUp.splice(index, 1);
+                          console.log(pieceSetUp);
+                        }
                       }
-                    });
+                    }
