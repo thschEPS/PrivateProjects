@@ -10,21 +10,40 @@ var grid = [
 
 var Piece = can.Construct.extend({
     init: function(x, y, initialPosition) {
-      this.y = y;
-      this.x = x;
-      this.position = grid[x][y];
-      this.initialPosition = initialPosition;  
-      this.color = Object.defineProperty(this, 'color', { 
-        get: function() {
-            if (initialPosition === true) {
-                return 'White';
-            } else if (initialPosition === false) {
-                return 'Black';
+        this.y = y;
+        this.x = x;
+        this.position = grid[x][y];
+        this.initialPosition = initialPosition;
+        this.color = Object.defineProperty(this, 'color', {
+            get: function() {
+                if (initialPosition === true) {
+                    return 'White';
+                } else if (initialPosition === false) {
+                    return 'Black';
+                }
             }
+        });
+
+    },
+    search: function search(num, column) {
+        if (!column) {
+            // This statement allows you to omit the column parameter.
+            // So you can call 'search(9);' and it will assume the column is 0.
+            column = 0;
         }
-    });
-      
+        if (column >= grid.length) {
+            console.log('No number present');
+            return null;
+        }
+        if (_.contains(grid[column], num)) {
+            var coordinates = [_.indexOf(grid[column], num), column];
+            console.log(coordinates);
+            return coordinates;
+        } else {
+            return search(num, column + 1);
+        }
     }
+
 });
 
 var Pawn = Piece.extend({
@@ -33,19 +52,19 @@ var Pawn = Piece.extend({
         Piece.prototype.init.apply(this, arguments);
         this.rightColumn = y + 1;
         this.leftColumn = y - 1;
-        this.row = Object.defineProperty(this, 'row', { 
-          get: function() {
-            if (this.color === 'White') {
-              return x + 1;
-            } else if (this.color === 'Black'){
-              return x - 1; 
+        this.row = Object.defineProperty(this, 'row', {
+            get: function() {
+                if (this.color === 'White') {
+                    return x + 1;
+                } else if (this.color === 'Black') {
+                    return x - 1;
+                }
             }
-          }
         });
     },
     move: function() {
-      //Decides the direction the pawn can move based on color
-       
+        //Decides the direction the pawn can move based on color
+
         var pieceList = [];
         if (grid[this.row][this.y] !== " E ") {
             console.log('You cannot move here');
@@ -56,16 +75,16 @@ var Pawn = Piece.extend({
             grid[this.x][this.y] = pieceList[1];
             display();
             pieceList.length = 0;
-        }        
+        }
     },
-  
+
     //Use Underscore JS to make finding the piece much easier
     attack: function() {
         this.direction = false; //confirm("OK for Left, Cancel for Right");
         //Allows user input, whether they want to go left or right
         if (this.direction === false) {
             if (grid[this.row][this.rightColumn] !== ' E ') {
-               if (_.indexOf(grid[this.x], this.y) !== 0) {
+                if (_.indexOf(grid[this.x], this.y) !== 0) {
                     //UnderscoreJS makes sure the pieces is not moving off the board 
                     var rightPieceList = [grid[this.x][this.y], grid[this.row][this.rightColumn]];
                     grid[this.x][this.y] = ' E ';
@@ -75,58 +94,61 @@ var Pawn = Piece.extend({
                     rightPieceList.length = 0;
                     //CUts piece out of game so it cannot move. 
                     for (var e = 0; e < pieceSetUp.length; e++) {
-                      if (pieceSetUp[e].position === rightPieceList[0]){
-                        var index = _.indexOf(pieceSetUp,pieceSetUp[e]);
-                        if (index > -1) {
-                          pieceSetUp.splice(index, 1);
-                          
+                        if (pieceSetUp[e].position === rightPieceList[0]) {
+                            var index = _.indexOf(pieceSetUp, pieceSetUp[e]);
+                            if (index > -1) {
+                                pieceSetUp.splice(index, 1);
+
+                            }
                         }
-                      }
                     }
                     display();
 
-                } 
+                }
             } else {
                 console.log('No piece here, try moving again');
-            
+
             }
         } else {
-          if (grid[this.row][this.leftColumn] !== ' E ') {
-            console.log('No piece to move here');
-          } else {
-            if (this.y === 3) {
-                console.log('You have approached the edge of the board');
-              }
+            if (grid[this.row][this.leftColumn] !== ' E ') {
+                console.log('No piece to move here');
+            } else {
+                if (this.y === 3) {
+                    console.log('You have approached the edge of the board');
+                }
                 if (_.indexOf(grid[this.x], this.y) !== 3) {
                     //UnderscoreJS makes sure the pieces is not moving off the board 
                     var leftPieceList = [grid[this.x][this.y], grid[this.row][this.leftColumn]];
                     grid[this.x][this.y] = ' E ';
                     for (var i = 0; i < pieceSetUp.length; i++) {
-                      if (pieceSetUp[i].position === leftPieceList[0]){
-                        var leftIndex = _.indexOf(pieceSetUp,pieceSetUp[i]);
-                        if (leftIndex > -1) {
-                          pieceSetUp.splice(leftIndex, 1);
-                          
+                        if (pieceSetUp[i].position === leftPieceList[0]) {
+                            var leftIndex = _.indexOf(pieceSetUp, pieceSetUp[i]);
+                            if (leftIndex > -1) {
+                                pieceSetUp.splice(leftIndex, 1);
+
+                            }
                         }
-                      }
                     }
                     grid[this.row][this.leftColumn] = leftPieceList[0];
                     this.y = this.leftColumn;
                     this.x = this.row;
                     leftPieceList.length = 0;
-                    
+
                     display();
                 } else {
                     console.log('You have approached the edge of the board');
-                } 
-            
-          }
+                }
+
+            }
         }
-}});
+    }
+});
+
+
 
 function createPawns() { //pawn constructor function
     var pieceSetUp = [];
-  //Separate For Loops creates pawns at opposite sides of the board
+    //Separate For Loops creates pawns at opposite sides of the board
     for (var i = 0; i < 4; i++) {
         var whitePawn = new Pawn(0, i, true);
         var whitePawnNum = i + 1;
