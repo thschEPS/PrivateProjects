@@ -1,60 +1,13 @@
-var board = [[0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0], 
-             [0, 0, 0, 0, 0, 0, 0, 0]];
-
-
-
-function Piece(position) {
-    this.position = position;
-    Object.defineProperty(this, 'color', {
+this.color = Object.defineProperty(this, 'color', { 
         get: function() {
-            var hold = this.position,
-                holdTwo = this.position.substring(0, 1);
-            if (holdTwo === 'W') {
+            if (initialPosition === true) {
                 return 'White';
-            } else if (holdTwo === 'B') {
+            } else if (initialPosition === false) {
                 return 'Black';
             }
         }
     });
-}
-
-
-Pawn.prototype = Object.create(Pawn.prototype);
-                        
-                        
-function Pawn (position) {
-  this.position = position;
-}
-
-
-  
-function makePawns() {
-  var color = [board[1], board[6]]; 
-  for (var e = 0; e < 2; e++) {
-    //e denotes color
-    for (var i = 0; i < 8; i++) {
-      //i denotes array it is in
-  var pawn = new Pawn(color[e[i]]);
-      if (e === 0) {
-        color[e][i] = "BP" + i; 
-      } else {
-        color[e][i] = "WP" + i; 
-      }
-  
-  }
-  }
-  board.forEach(function(entry) {
-  console.log(entry);
-});
     
-}
-
-
-
-makePawns();
+    
+    
+//reference:  var blackPawn = new Pawn(3, e, false);
