@@ -1,0 +1,19 @@
+verticalMove: function () {
+    var spaceNum = 2; //prompt('How many?');
+    var direction = 'Backwards';
+    if (direction === 'Forwards') {
+      var whiteSpaces = (spaceNum) - 1;
+      grid[this.x][this.y] = 0; 
+      this.position = grid[whiteSpaces][this.y];
+      grid[whiteSpaces][this.y] = 'R';
+      this.x = whiteSpaces;
+      display();
+    } else if (direction === 'Backwards') {
+      var blackSpaces = (grid.length) - ((spaceNum) + 1);
+      grid[this.x][this.y] = 0; 
+      this.position = grid[blackSpaces][this.y];
+      grid[blackSpaces][this.y] = 'R';
+      this.x = blackSpaces;
+      display();
+    }
+  },
