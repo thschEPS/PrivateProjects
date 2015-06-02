@@ -1,0 +1,87 @@
+var grid = [
+  [0,0,0,0], 
+  [0,0,0,0], 
+  [0,0,0,0], 
+  [0,0,0,0]
+];
+
+var Piece = can.Construct.extend({
+    init: function(x, y, initialPosition) {
+        this.y = y;
+        this.x = x;
+        this.position = grid[x][y];
+        this.initialPosition = initialPosition;
+        this.color = Object.defineProperty(this, 'color', {
+            get: function() {
+                if (initialPosition === true) {
+                    return 'White';
+                } else if (initialPosition === false) {
+                    return 'Black';
+                }
+            }
+        });
+
+    }
+});
+
+var Rook = Piece.extend({
+  init: function() {
+    Piece.prototype.init.apply(this, arguments);
+  
+    }, 
+  verticalMove: function () {
+    var spaceNum = 2; //prompt('How many?');
+    var direction = 'Backwards'; //prompt('Backwards or forwards?');
+    if (direction === 'Forwards') {
+      var whiteSpaces = (spaceNum) - 1;
+      grid[this.x][this.y] = 0; 
+      this.position = grid[whiteSpaces][this.y];
+      grid[whiteSpaces][this.y] = 'R';
+      this.x = whiteSpaces;
+      display();
+    } else if (direction === 'Backwards') {
+      var blackSpaces = (grid.length) - ((spaceNum) + 1);
+      grid[this.x][this.y] = 0; 
+      this.position = grid[blackSpaces][this.y];
+      grid[blackSpaces][this.y] = 'R';
+      this.x = blackSpaces;
+      display();
+    }
+  }, 
+  
+  horizontalMove: function () {
+    
+  }
+  
+  
+  
+  
+  
+});
+
+
+function createPiece() { //pawn constructor function
+    var pieceSetUp = [];
+    //Separate For Loops creates pawns at opposite sides of the board
+    
+        var rook = new Rook(3, 0, false);
+        
+        grid[3][0] = 'R';
+        pieceSetUp.push(rook);
+    
+    
+    display();
+    return pieceSetUp;
+}
+
+//Display each row of the board with a for loop
+function display() {
+    console.log('_______');
+    for (var e = 0; e < 4; e++) {
+        console.log(grid[e]);
+    }
+}
+
+var pieces = createPiece();
+
+pieces[0].verticalMove();
