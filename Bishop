@@ -1,0 +1,56 @@
+var Bishop = Piece.extend({
+  init: function() {
+    Piece.prototype.init.apply(this, arguments);
+    }, 
+  move: function() {
+    var spaceNum = 1, //prompt();
+        verticalDirection = 'Down', //prompt();
+        horizontalDirection = 'Right'; //prompt();
+    if (verticalDirection === 'Up') {
+      if (horizontalDirection === 'Left') {
+        grid[this.x][this.y] = ' E ';
+        this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) +             (spaceNum)];
+        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' B '; 
+        this.x = (this.x - 1) + (spaceNum);
+        this.y = (this.y - 1) + (spaceNum);
+        display();
+      } else if (horizontalDirection === 'Right') {
+         
+        
+        grid[this.x][this.y] = ' E ';
+        this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) +             (spaceNum)];
+        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' B '; 
+        this.x = (this.x - 1) + (spaceNum);
+        this.y = (this.y + 1) + (spaceNum);
+        display();
+        
+        
+        
+      }
+      
+      } else if (verticalDirection === 'Down') {
+               
+        
+        if (horizontalDirection === 'Left') {
+        grid[this.x][this.y] = ' E ';
+        this.position = grid[(this.x) + (spaceNum)][(this.y - 1) +             (spaceNum)];
+        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' B '; 
+        this.x = (this.x + 1) + (spaceNum);
+        this.y = (this.y - 1) + (spaceNum);
+        display();
+      } else if (horizontalDirection === 'Right') {
+         
+        
+        grid[this.x][this.y] = ' E ';
+        this.position = grid[(this.x) + (spaceNum)][(this.y + 1) +             (spaceNum)];
+        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' B '; 
+        this.x = (this.x + 1) + (spaceNum);
+        this.y = (this.y + 1) + (spaceNum);
+        display();
+        
+        
+        
+      }
+    }
+  }
+});
