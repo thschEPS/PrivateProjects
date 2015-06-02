@@ -1,19 +1,21 @@
-verticalMove: function () {
-    var spaceNum = 2; //prompt('How many?');
-    var direction = 'Backwards';
-    if (direction === 'Forwards') {
-      var whiteSpaces = (spaceNum) - 1;
-      grid[this.x][this.y] = 0; 
-      this.position = grid[whiteSpaces][this.y];
-      grid[whiteSpaces][this.y] = 'R';
-      this.x = whiteSpaces;
+
+  verticalMove: function () {
+    var spaceNum = 1; //prompt('How many?');
+    var verticalDirection = 'Backwards';//prompt();
+    if (verticalDirection === 'Forwards') {
+      grid[this.x][this.y] = ' E '; 
+      this.position = grid[this.x + spaceNum][this.y];
+      grid[this.x + spaceNum][this.y] = ' R ';
+      this.x += spaceNum;
       display();
-    } else if (direction === 'Backwards') {
-      var blackSpaces = (grid.length) - ((spaceNum) + 1);
-      grid[this.x][this.y] = 0; 
-      this.position = grid[blackSpaces][this.y];
-      grid[blackSpaces][this.y] = 'R';
-      this.x = blackSpaces;
+    } else if (verticalDirection === 'Backwards') {
+      var downSpaces = (grid.length) - ((spaceNum) + 1);
+      grid[this.x][this.y] = ' E '; 
+      this.position = grid[downSpaces][this.y];
+      grid[downSpaces][this.y] = ' R ';
+      this.x = downSpaces;
       display();
     }
-  },
+  }, 
+  
+ 
