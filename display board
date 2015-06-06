@@ -1,6 +1,0 @@
-function display() {
-    console.log('_______');
-    for (var e = 0; e < 4; e++) {
-        console.log(grid[e]);
-    }
-}
