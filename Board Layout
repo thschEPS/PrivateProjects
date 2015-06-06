@@ -1,8 +1,0 @@
-var grid = [
-    [' E ', ' E ', ' E ', ' E '],
-    [' E ', ' E ', ' E ', ' E '],
-    [' E ', ' E ', ' E ', ' G '],
-    [' E ', ' E ', ' E ', ' E ']
-];
-
-//' G ' represent Dummy piece so the piece can attack in a demo
