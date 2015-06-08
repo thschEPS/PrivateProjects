@@ -1,5 +1,4 @@
-
-//' G ' represent Dummy piece so the piece can attack in a demo. Display data stored in local array. 
+//Display data stored in local array. 
 var grid = [
     [' E ', ' E ', ' E ', ' E '],
     [' E ', ' E ', ' E ', ' E '],
@@ -27,7 +26,7 @@ var Piece = can.Construct.extend({
         });
 
     },
-//Search Scanner to be used when there are more pieces to see if the piece can move there and if there are piece there. Method is defined in the prototype object. 
+    //Search Scanner to be used when there are more pieces to see if the piece can move there and if there are piece there. Method is defined in the prototype object. 
     //Search function uses recursion + array methods via underscore_JS. 
     search: function search(num, column) {
         if (!column) {
@@ -52,204 +51,208 @@ var Piece = can.Construct.extend({
 
 //Inheritance and encapulation w/sub classes. 
 var Queen = Piece.extend({
-  init: function() {
-  //instance w/this. 
-    Piece.prototype.init.apply(this, arguments);
-    }, 
-  diagMove: function() {
-    var spaceNum = 1, //prompt();
-        verticalDirection = 'Up', //prompt();
-        horizontalDirection = 'Right'; //prompt();
-    if (verticalDirection === 'Up') {
-      if (horizontalDirection === 'Left') {
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) + (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' Q '+ this.color.substring(0,1); 
-        this.x = (this.x - 1) + (spaceNum);
-        this.y = (this.y - 1) + (spaceNum);
-        display();
-      } else if (horizontalDirection === 'Right') {
-         
-        
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) + (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' Q '+ this.color.substring(0,1); 
-        this.x = (this.x - 1) + (spaceNum);
-        this.y = (this.y + 1) + (spaceNum);
-        display();
-        
-        
-        
-      }
-      
-      } else if (verticalDirection === 'Down') {
-               
-        
-        if (horizontalDirection === 'Left') {
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x) + (spaceNum)][(this.y - 1) + (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' Q ' + this.color.substring(0,1); 
-        this.x = (this.x + 1) + (spaceNum);
-        this.y = (this.y - 1) + (spaceNum);
-        display();
-      } else if (horizontalDirection === 'Right') {
-         
-        
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x) + (spaceNum)][(this.y + 1) +             (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' Q ' + this.color.substring(0,1); 
-        this.x = (this.x + 1) + (spaceNum);
-        this.y = (this.y + 1) + (spaceNum);
-        display();
-        
-        
-        
-      }
+    init: function() {
+        //instance w/this. 
+        Piece.prototype.init.apply(this, arguments);
+    },
+    diagMove: function() {
+        var spaceNum = 1, //prompt('How many spaces Forward?');
+            verticalDirection = 'Up', //prompt('Up or Down?');
+            horizontalDirection = 'Right'; //prompt('Left or Right?');
+        if (verticalDirection === 'Up') {
+            if (horizontalDirection === 'Left') {
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) + (spaceNum)];
+                //Searches for substring so it can easily replace the text on the board. 
+                grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' Q ' + this.color.substring(0, 1);
+                this.x = (this.x - 1) + (spaceNum);
+                this.y = (this.y - 1) + (spaceNum);
+                display();
+            } else if (horizontalDirection === 'Right') {
+
+
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) + (spaceNum)];
+                grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' Q ' + this.color.substring(0, 1);
+                this.x = (this.x - 1) + (spaceNum);
+                this.y = (this.y + 1) + (spaceNum);
+                display();
+
+
+
+            }
+
+        } else if (verticalDirection === 'Down') {
+
+
+            if (horizontalDirection === 'Left') {
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x) + (spaceNum)][(this.y - 1) + (spaceNum)];
+                grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' Q ' + this.color.substring(0, 1);
+                this.x = (this.x + 1) + (spaceNum);
+                this.y = (this.y - 1) + (spaceNum);
+                display();
+            } else if (horizontalDirection === 'Right') {
+
+
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x) + (spaceNum)][(this.y + 1) + (spaceNum)];
+                grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' Q ' + this.color.substring(0, 1);
+                this.x = (this.x + 1) + (spaceNum);
+                this.y = (this.y + 1) + (spaceNum);
+                display();
+
+
+
+            }
+        }
+    },
+    verticalMove: function() {
+        var spaceNum = 1; //prompt('How many?');
+        var verticalDirection = 'Backwards'; //prompt('Backwards or Forwards?');
+        if (verticalDirection === 'Forwards') {
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[this.x + spaceNum][this.y];
+            grid[this.x + spaceNum][this.y] = ' Q ' + this.color.substring(0, 1);
+            this.x += spaceNum;
+            display();
+        } else if (verticalDirection === 'Backwards') {
+            var downSpaces = (grid.length) - ((spaceNum) + 1);
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[downSpaces][this.y];
+            grid[downSpaces][this.y] = ' Q ' + this.color.substring(0, 1);
+            this.x = downSpaces;
+            display();
+        }
+    },
+
+    horizontalMove: function() {
+        var spaceHorizontalNum = 2; //prompt('How many?');
+        var horizontalDirection = 'Left'; //prompt('Left or Right?');
+        if (horizontalDirection === 'Right') {
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[this.x][this.y + spaceHorizontalNum];
+            grid[this.x][this.y + spaceHorizontalNum] = ' Q ' + this.color.substring(0, 1);
+            this.y += spaceHorizontalNum;
+            display();
+        } else if (horizontalDirection === 'Left') {
+            var sideSpaces = (grid.length) - ((spaceHorizontalNum) + 1);
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[this.x][sideSpaces];
+            grid[this.x][sideSpaces - this.y + 1] = ' Q ' + this.color.substring(0, 1);
+            this.y += sideSpaces;
+            display();
+        }
     }
-  }, 
-  verticalMove: function () {
-    var spaceNum = 1; //prompt('How many?');
-    var verticalDirection = 'Backwards';//prompt();
-    if (verticalDirection === 'Forwards') {
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[this.x + spaceNum][this.y];
-      grid[this.x + spaceNum][this.y] = ' Q '+ this.color.substring(0,1);
-      this.x += spaceNum;
-      display();
-    } else if (verticalDirection === 'Backwards') {
-      var downSpaces = (grid.length) - ((spaceNum) + 1);
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[downSpaces][this.y];
-      grid[downSpaces][this.y] = ' Q '+ this.color.substring(0,1);
-      this.x = downSpaces;
-      display();
-    }
-  }, 
-  
-  horizontalMove: function () {
-    var spaceHorizontalNum = 2; //prompt('How many?');
-    var horizontalDirection = 'Left'; //prompt();
-    if (horizontalDirection === 'Right') {
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[this.x][this.y + spaceHorizontalNum];
-      grid[this.x][this.y + spaceHorizontalNum] = ' Q '+ this.color.substring(0,1);
-      this.y += spaceHorizontalNum;
-      display();
-    } else if (horizontalDirection === 'Left') {
-      var sideSpaces = (grid.length) - ((spaceHorizontalNum) + 1);
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[this.x][sideSpaces];
-      grid[this.x][sideSpaces -this.y + 1] = ' Q '+ this.color.substring(0,1);
-      this.y += sideSpaces;
-      display();
-    }
-  }  
 });
 
 var Rook = Piece.extend({
-  init: function() {
-    Piece.prototype.init.apply(this, arguments);
-    }, 
-  verticalMove: function () {
-    var spaceNum = 1; //prompt('How many?');
-    var verticalDirection = 'Backwards';//prompt();
-    if (verticalDirection === 'Forwards') {
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[this.x + spaceNum][this.y];
-      grid[this.x + spaceNum][this.y] = ' R ' + this.color.substring(0,1);
-      this.x += spaceNum;
-      display();
-    } else if (verticalDirection === 'Backwards') {
-      var downSpaces = (grid.length) - ((spaceNum) + 1);
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[downSpaces][this.y];
-      grid[downSpaces][this.y] = ' R ' + this.color.substring(0,1);
-      this.x = downSpaces;
-      display();
+    init: function() {
+        Piece.prototype.init.apply(this, arguments);
+    },
+    verticalMove: function() {
+        var spaceNum = 1; //prompt('How many?');
+        var verticalDirection = 'Backwards'; //prompt('Backwards or Forwards');
+        if (verticalDirection === 'Forwards') {
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[this.x + spaceNum][this.y];
+            grid[this.x + spaceNum][this.y] = ' R ' + this.color.substring(0, 1);
+            this.x += spaceNum;
+            display();
+        } else if (verticalDirection === 'Backwards') {
+            var downSpaces = (grid.length) - ((spaceNum) + 1);
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[downSpaces][this.y];
+            grid[downSpaces][this.y] = ' R ' + this.color.substring(0, 1);
+            this.x = downSpaces;
+            display();
+        }
+    },
+
+    horizontalMove: function() {
+        var spaceHorizontalNum = 2; //prompt('How many?');
+        var horizontalDirection = 'Left'; //prompt('Left or Right');
+        if (horizontalDirection === 'Right') {
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[this.x][this.y + spaceHorizontalNum];
+            grid[this.x][this.y + spaceHorizontalNum] = ' R ' + this.color.substring(0, 1);
+            this.y += spaceHorizontalNum;
+            display();
+        } else if (horizontalDirection === 'Left') {
+            var sideSpaces = (grid.length) - ((spaceHorizontalNum) + 1);
+            grid[this.x][this.y] = ' E ';
+            this.position = grid[this.x][sideSpaces];
+            grid[this.x][sideSpaces - this.y + 1] = ' R ' + this.color.substring(0, 1);
+            this.y += sideSpaces;
+            display();
+        }
     }
-  }, 
-  
-  horizontalMove: function () {
-    var spaceHorizontalNum = 2; //prompt('How many?');
-    var horizontalDirection = 'Left'; //prompt();
-    if (horizontalDirection === 'Right') {
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[this.x][this.y + spaceHorizontalNum];
-      grid[this.x][this.y + spaceHorizontalNum] = ' R ' + this.color.substring(0,1);
-      this.y += spaceHorizontalNum;
-      display();
-    } else if (horizontalDirection === 'Left') {
-      var sideSpaces = (grid.length) - ((spaceHorizontalNum) + 1);
-      grid[this.x][this.y] = ' E '; 
-      this.position = grid[this.x][sideSpaces];
-      grid[this.x][sideSpaces -this.y + 1] = ' R ' + this.color.substring(0,1);
-      this.y += sideSpaces;
-      display();
-    }
-  }  
 });
 
 var Bishop = Piece.extend({
-  init: function() {
-    Piece.prototype.init.apply(this, arguments);
-    }, 
-  move: function() {
-    var spaceNum = 1, //prompt();
-        verticalDirection = 'Down', //prompt();
-        horizontalDirection = 'Left'; //prompt();
-    if (verticalDirection === 'Up') {
-      if (horizontalDirection === 'Left') {
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) + (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' B'+ this.color.substring(0,1); 
-        this.x = (this.x - 1) + (spaceNum);
-        this.y = (this.y - 1) + (spaceNum);
-        display();
-      } else if (horizontalDirection === 'Right') {
-         
-        
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) + (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' B'+ this.color.substring(0,1); 
-        this.x = (this.x - 1) + (spaceNum);
-        this.y = (this.y + 1) + (spaceNum);
-        display();
-        
-        
-        
-      }
-      
-      } else if (verticalDirection === 'Down') {
-               
-        
-        if (horizontalDirection === 'Left') {
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x) + (spaceNum)][(this.y - 1) + (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' B'+ this.color.substring(0,1); 
-        this.x = (this.x + 1) + (spaceNum);
-        this.y = (this.y - 1) + (spaceNum);
-        display();
-      } else if (horizontalDirection === 'Right') {
-         
-        
-        grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x) + (spaceNum)][(this.y + 1) + (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' B'+ this.color.substring(0,1); 
-        this.x = (this.x + 1) + (spaceNum);
-        this.y = (this.y + 1) + (spaceNum);
-        display();
-        
-        
-        
-      }
+    init: function() {
+        Piece.prototype.init.apply(this, arguments);
+    },
+    move: function() {
+        var spaceNum = 1, //prompt('How many?');
+            verticalDirection = 'Down', //prompt('Up or Down?');
+            horizontalDirection = 'Left'; //prompt(Left or Right?);
+        //Nested conditionals allow for separate types of movement on a 2 dimensional grid. 
+        if (verticalDirection === 'Up') {
+            if (horizontalDirection === 'Left') {
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) + (spaceNum)];
+                grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' B' + this.color.substring(0, 1);
+                this.x = (this.x - 1) + (spaceNum);
+                this.y = (this.y - 1) + (spaceNum);
+                display();
+            } else if (horizontalDirection === 'Right') {
+
+
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) + (spaceNum)];
+                grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' B' + this.color.substring(0, 1);
+                this.x = (this.x - 1) + (spaceNum);
+                this.y = (this.y + 1) + (spaceNum);
+                display();
+
+
+
+            }
+
+        } else if (verticalDirection === 'Down') {
+
+
+            if (horizontalDirection === 'Left') {
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x) + (spaceNum)][(this.y - 1) + (spaceNum)];
+                grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' B' + this.color.substring(0, 1);
+                this.x = (this.x + 1) + (spaceNum);
+                this.y = (this.y - 1) + (spaceNum);
+                display();
+            } else if (horizontalDirection === 'Right') {
+
+
+                grid[this.x][this.y] = ' E ';
+                this.position = grid[(this.x) + (spaceNum)][(this.y + 1) + (spaceNum)];
+                grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' B' + this.color.substring(0, 1);
+                this.x = (this.x + 1) + (spaceNum);
+                this.y = (this.y + 1) + (spaceNum);
+                display();
+
+
+
+            }
+        }
     }
-  }
 });
 
 
 var Pawn = Piece.extend({
     init: function(x, y, initialPosition, color, position) {
-        // call base's init
+        // call Piece's inititaliation code.
+        // All information integral to the Pawn is stored below. 
+
         Piece.prototype.init.apply(this, arguments);
         this.rightColumn = y + 1;
         this.leftColumn = y - 1;
@@ -265,7 +268,6 @@ var Pawn = Piece.extend({
     },
     move: function() {
         //Decides the direction the pawn can move based on color
-
         var pieceList = [];
         if (grid[this.row][this.y] !== " E ") {
             console.log('You cannot move here');
@@ -348,19 +350,20 @@ var Pawn = Piece.extend({
 
 
 function createPawns() { //pawn constructor function
-    var pieceSetUp = []; 
+    var pieceSetUp = [];
     //Separate For Loops creates pawns at opposite sides of the board
+    //Boolean passed in to determine color
     for (var i = 0; i < 4; i++) {
-        var whitePieceType = [new Pawn(0, i, true), new Queen(0, i, true), new Rook(0, i, true), new Bishop(0, i, true)], 
+        var whitePieceType = [new Pawn(0, i, true), new Queen(0, i, true), new Rook(0, i, true), new Bishop(0, i, true)],
             pieceNames = ['WP ', 'WQ ', 'WR ', 'WB '];
         var whitePawn = whitePieceType[i];
         grid[0][i] = pieceNames[i];
         pieceSetUp.push(whitePawn);
     }
     for (var e = 3; e > -1; e--) {
-        var blackPieceType = [new Pawn(3, e, false), new Queen(3, e, false), new Rook(3, e, false), new Bishop(3, e, false)], 
+        var blackPieceType = [new Pawn(3, e, false), new Queen(3, e, false), new Rook(3, e, false), new Bishop(3, e, false)],
             blackPieceNames = ['BP ', 'BQ ', 'BR ', 'BB '];
-        var blackPawn = blackPieceType[e];        
+        var blackPawn = blackPieceType[e];
         grid[3][e] = blackPieceNames[e];
         pieceSetUp.push(blackPawn);
     }
