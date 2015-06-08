@@ -1,0 +1,20 @@
+function createPawns() { //pawn constructor function
+    var pieceSetUp = []; 
+    //Separate For Loops creates pawns at opposite sides of the board
+    for (var i = 0; i < 4; i++) {
+        var whitePieceType = [new Pawn(0, i, true), new Queen(0, i, true), new Rook(0, i, true), new Bishop(0, i, true)], 
+            pieceNames = ['WP ', 'WQ ', 'WR ', 'WB '];
+        var whitePawn = whitePieceType[i];
+        grid[0][i] = pieceNames[i];
+        pieceSetUp.push(whitePawn);
+    }
+    for (var e = 3; e > -1; e--) {
+        var blackPieceType = [new Pawn(3, e, false), new Queen(3, e, false), new Rook(3, e, false), new Bishop(3, e, false)], 
+            blackPieceNames = ['BP ', 'BQ ', 'BR ', 'BB '];
+        var blackPawn = blackPieceType[e];        
+        grid[3][e] = blackPieceNames[e];
+        pieceSetUp.push(blackPawn);
+    }
+    display();
+    return pieceSetUp;
+}
