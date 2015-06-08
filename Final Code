@@ -1,4 +1,4 @@
-//' G ' represent Dummy piece so the piece can attack in a demo
+//' G ' represent Dummy piece so the piece can attack in a demo. Diaplsy data stored in local array. 
 var grid = [
     [' E ', ' E ', ' E ', ' E '],
     [' E ', ' E ', ' E ', ' E '],
@@ -7,13 +7,14 @@ var grid = [
 ];
 
 //Using Can.JS to simplify inheritance and polymorphism. 
-
+//Piece is a "Super class" constructor function 
 var Piece = can.Construct.extend({
     init: function(x, y, initialPosition) {
         this.y = y;
         this.x = x;
         this.position = grid[x][y];
         this.initialPosition = initialPosition;
+        //Get property looks at boolean to determine whether piece is black or white
         this.color = Object.defineProperty(this, 'color', {
             get: function() {
                 if (initialPosition === true) {
@@ -25,7 +26,7 @@ var Piece = can.Construct.extend({
         });
 
     },
-//Search Scanner to be used when there are more pieces to see if the piece can move there and if there are piece there
+//Search Scanner to be used when there are more pieces to see if the piece can move there and if there are piece there. Method is defined in the prototype object. 
     search: function search(num, column) {
         if (!column) {
             // This statement allows you to omit the column parameter.
@@ -47,8 +48,10 @@ var Piece = can.Construct.extend({
 
 });
 
+//Inheritance and encapulation w/sub classes. 
 var Queen = Piece.extend({
   init: function() {
+  //instance w/this. 
     Piece.prototype.init.apply(this, arguments);
     }, 
   diagMove: function() {
