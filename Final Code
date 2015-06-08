@@ -1,8 +1,9 @@
-//' G ' represent Dummy piece so the piece can attack in a demo. Diaplsy data stored in local array. 
+
+//' G ' represent Dummy piece so the piece can attack in a demo. Display data stored in local array. 
 var grid = [
     [' E ', ' E ', ' E ', ' E '],
     [' E ', ' E ', ' E ', ' E '],
-    [' E ', ' E ', ' E ', ' G '],
+    [' E ', ' E ', ' E ', ' E '],
     [' E ', ' E ', ' E ', ' E ']
 ];
 
@@ -57,13 +58,13 @@ var Queen = Piece.extend({
     }, 
   diagMove: function() {
     var spaceNum = 1, //prompt();
-        verticalDirection = 'Down', //prompt();
+        verticalDirection = 'Up', //prompt();
         horizontalDirection = 'Right'; //prompt();
     if (verticalDirection === 'Up') {
       if (horizontalDirection === 'Left') {
         grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) +             (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' B '; 
+        this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) + (spaceNum)];
+        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' Q '+ this.color.substring(0,1); 
         this.x = (this.x - 1) + (spaceNum);
         this.y = (this.y - 1) + (spaceNum);
         display();
@@ -71,8 +72,8 @@ var Queen = Piece.extend({
          
         
         grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) +             (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' B '; 
+        this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) + (spaceNum)];
+        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' Q '+ this.color.substring(0,1); 
         this.x = (this.x - 1) + (spaceNum);
         this.y = (this.y + 1) + (spaceNum);
         display();
@@ -86,8 +87,8 @@ var Queen = Piece.extend({
         
         if (horizontalDirection === 'Left') {
         grid[this.x][this.y] = ' E ';
-        this.position = grid[(this.x) + (spaceNum)][(this.y - 1) +             (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' B '; 
+        this.position = grid[(this.x) + (spaceNum)][(this.y - 1) + (spaceNum)];
+        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' Q ' + this.color.substring(0,1); 
         this.x = (this.x + 1) + (spaceNum);
         this.y = (this.y - 1) + (spaceNum);
         display();
@@ -96,7 +97,7 @@ var Queen = Piece.extend({
         
         grid[this.x][this.y] = ' E ';
         this.position = grid[(this.x) + (spaceNum)][(this.y + 1) +             (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' B '; 
+        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' Q ' + this.color.substring(0,1); 
         this.x = (this.x + 1) + (spaceNum);
         this.y = (this.y + 1) + (spaceNum);
         display();
@@ -112,14 +113,14 @@ var Queen = Piece.extend({
     if (verticalDirection === 'Forwards') {
       grid[this.x][this.y] = ' E '; 
       this.position = grid[this.x + spaceNum][this.y];
-      grid[this.x + spaceNum][this.y] = ' R ';
+      grid[this.x + spaceNum][this.y] = ' Q '+ this.color.substring(0,1);
       this.x += spaceNum;
       display();
     } else if (verticalDirection === 'Backwards') {
       var downSpaces = (grid.length) - ((spaceNum) + 1);
       grid[this.x][this.y] = ' E '; 
       this.position = grid[downSpaces][this.y];
-      grid[downSpaces][this.y] = ' R ';
+      grid[downSpaces][this.y] = ' Q '+ this.color.substring(0,1);
       this.x = downSpaces;
       display();
     }
@@ -131,14 +132,14 @@ var Queen = Piece.extend({
     if (horizontalDirection === 'Right') {
       grid[this.x][this.y] = ' E '; 
       this.position = grid[this.x][this.y + spaceHorizontalNum];
-      grid[this.x][this.y + spaceHorizontalNum] = ' R ';
+      grid[this.x][this.y + spaceHorizontalNum] = ' Q '+ this.color.substring(0,1);
       this.y += spaceHorizontalNum;
       display();
     } else if (horizontalDirection === 'Left') {
       var sideSpaces = (grid.length) - ((spaceHorizontalNum) + 1);
       grid[this.x][this.y] = ' E '; 
       this.position = grid[this.x][sideSpaces];
-      grid[this.x][sideSpaces -this.y + 1] = ' R ';
+      grid[this.x][sideSpaces -this.y + 1] = ' Q '+ this.color.substring(0,1);
       this.y += sideSpaces;
       display();
     }
@@ -155,14 +156,14 @@ var Rook = Piece.extend({
     if (verticalDirection === 'Forwards') {
       grid[this.x][this.y] = ' E '; 
       this.position = grid[this.x + spaceNum][this.y];
-      grid[this.x + spaceNum][this.y] = ' R ';
+      grid[this.x + spaceNum][this.y] = ' R ' + this.color.substring(0,1);
       this.x += spaceNum;
       display();
     } else if (verticalDirection === 'Backwards') {
       var downSpaces = (grid.length) - ((spaceNum) + 1);
       grid[this.x][this.y] = ' E '; 
       this.position = grid[downSpaces][this.y];
-      grid[downSpaces][this.y] = ' R ';
+      grid[downSpaces][this.y] = ' R ' + this.color.substring(0,1);
       this.x = downSpaces;
       display();
     }
@@ -174,14 +175,14 @@ var Rook = Piece.extend({
     if (horizontalDirection === 'Right') {
       grid[this.x][this.y] = ' E '; 
       this.position = grid[this.x][this.y + spaceHorizontalNum];
-      grid[this.x][this.y + spaceHorizontalNum] = ' R ';
+      grid[this.x][this.y + spaceHorizontalNum] = ' R ' + this.color.substring(0,1);
       this.y += spaceHorizontalNum;
       display();
     } else if (horizontalDirection === 'Left') {
       var sideSpaces = (grid.length) - ((spaceHorizontalNum) + 1);
       grid[this.x][this.y] = ' E '; 
       this.position = grid[this.x][sideSpaces];
-      grid[this.x][sideSpaces -this.y + 1] = ' R ';
+      grid[this.x][sideSpaces -this.y + 1] = ' R ' + this.color.substring(0,1);
       this.y += sideSpaces;
       display();
     }
@@ -195,12 +196,12 @@ var Bishop = Piece.extend({
   move: function() {
     var spaceNum = 1, //prompt();
         verticalDirection = 'Down', //prompt();
-        horizontalDirection = 'Right'; //prompt();
+        horizontalDirection = 'Left'; //prompt();
     if (verticalDirection === 'Up') {
       if (horizontalDirection === 'Left') {
         grid[this.x][this.y] = ' E ';
         this.position = grid[(this.x - 1) + (spaceNum)][(this.y - 1) + (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' B '; 
+        grid[(this.x) - (spaceNum)][(this.y) - (spaceNum)] = ' B'+ this.color.substring(0,1); 
         this.x = (this.x - 1) + (spaceNum);
         this.y = (this.y - 1) + (spaceNum);
         display();
@@ -209,7 +210,7 @@ var Bishop = Piece.extend({
         
         grid[this.x][this.y] = ' E ';
         this.position = grid[(this.x - 1) + (spaceNum)][(this.y + 1) + (spaceNum)];
-        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' B '; 
+        grid[(this.x) - (spaceNum)][(this.y) + (spaceNum)] = ' B'+ this.color.substring(0,1); 
         this.x = (this.x - 1) + (spaceNum);
         this.y = (this.y + 1) + (spaceNum);
         display();
@@ -224,7 +225,7 @@ var Bishop = Piece.extend({
         if (horizontalDirection === 'Left') {
         grid[this.x][this.y] = ' E ';
         this.position = grid[(this.x) + (spaceNum)][(this.y - 1) + (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' B '; 
+        grid[(this.x) + (spaceNum)][(this.y) - (spaceNum)] = ' B'+ this.color.substring(0,1); 
         this.x = (this.x + 1) + (spaceNum);
         this.y = (this.y - 1) + (spaceNum);
         display();
@@ -233,7 +234,7 @@ var Bishop = Piece.extend({
         
         grid[this.x][this.y] = ' E ';
         this.position = grid[(this.x) + (spaceNum)][(this.y + 1) + (spaceNum)];
-        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' B '; 
+        grid[(this.x) + (spaceNum)][(this.y) + (spaceNum)] = ' B'+ this.color.substring(0,1); 
         this.x = (this.x + 1) + (spaceNum);
         this.y = (this.y + 1) + (spaceNum);
         display();
@@ -347,18 +348,20 @@ var Pawn = Piece.extend({
 
 
 function createPawns() { //pawn constructor function
-    var pieceSetUp = [];
+    var pieceSetUp = []; 
     //Separate For Loops creates pawns at opposite sides of the board
     for (var i = 0; i < 4; i++) {
-        var whitePawn = new Pawn(0, i, true);
-        var whitePawnNum = i + 1;
-        grid[0][i] = 'WP' + whitePawnNum;
+        var whitePieceType = [new Pawn(0, i, true), new Queen(0, i, true), new Rook(0, i, true), new Bishop(0, i, true)], 
+            pieceNames = ['WP ', 'WQ ', 'WR ', 'WB '];
+        var whitePawn = whitePieceType[i];
+        grid[0][i] = pieceNames[i];
         pieceSetUp.push(whitePawn);
     }
     for (var e = 3; e > -1; e--) {
-        var blackPawn = new Pawn(3, e, false);
-        var blackPawnNum = e + 1;
-        grid[3][e] = 'BP' + blackPawnNum;
+        var blackPieceType = [new Pawn(3, e, false), new Queen(3, e, false), new Rook(3, e, false), new Bishop(3, e, false)], 
+            blackPieceNames = ['BP ', 'BQ ', 'BR ', 'BB '];
+        var blackPawn = blackPieceType[e];        
+        grid[3][e] = blackPieceNames[e];
         pieceSetUp.push(blackPawn);
     }
     display();
@@ -376,5 +379,4 @@ function display() {
 var pieceSetUp = createPawns(); //creates a new chess setting
 
 
-
-pieceSetUp[5].attack();
+pieceSetUp[3].move();
