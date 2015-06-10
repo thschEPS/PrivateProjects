@@ -1,0 +1,33 @@
+var names = ['Colin', 'Thomas', 'Dad', 'Mom', 'Jennifer'], 
+    countries = ['Spain', 'USA', 'Uruguay', 'Zimbabwe', 'China'];
+
+
+
+function printNames (array) {
+  var arrayLength = 0;
+  
+array.forEach(function(entry) {
+  if (entry.length > arrayLength) {
+    arrayLength = entry.length;
+  }
+});
+  
+for (var i = 0; i < array.length; i++) {
+  if (array[i].length < arrayLength) {
+    for (var e = 0; arrayLength > array[i].length; e++) {
+      array[i] += ' ';
+    }
+  }
+}
+  
+}
+
+function display () {
+  for (var m = 0; m < names.length; m++) {
+  console.log(names[m] + ' | ' + countries[m]);
+  }
+}
+
+printNames(names);
+printNames(countries);
+display();
