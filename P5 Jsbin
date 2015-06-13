@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="webcam p5.js">
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.2/p5.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.2/addons/p5.dom.js"></script>
+  
+</body>
+</html>
