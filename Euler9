@@ -1,0 +1,58 @@
+var arr = [], 
+    arr2 = [],
+    arr3 = [],
+    hold = 1; 
+
+function compare () {
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < arr2.length; j++) {
+      if(arr[i] === arr2[j]) {
+        var mul = 1000/arr[i];
+        for (var k = 0; k < 3; k++) {
+          var n = arr3[j][k] * mul;
+          hold = hold * n;
+        }
+        console.log(hold);
+      }
+    }
+  }
+  
+}
+
+function check (s1,s2,n) {
+  if (s1 < n) {
+    var l1 = 2*s1*s2, 
+        l2 = (s1*s1)-(s2*s2), 
+        l3 = Math.pow((l1*l1)+(l2*l2),0.5); 
+    arr2.push(l1+l2+l3);
+    arr3.push([l1,l2,l3]);
+    
+    if (s2 === s1-1) {
+      check(s1+1,1,n);
+    } else {
+      check(s1,s2+1,n);
+    }
+  } 
+}
+
+
+function factor (num,f) {
+  if (f < 1+num/2) {
+    if (num % f === 0) {
+      arr.push(f);
+      factor(num,f+1);
+    } else {
+      factor(num,f+1);
+    }
+  } 
+}
+
+function setUp() {
+  check(2,1,7);
+  factor(1000,2);
+  compare();
+}
+
+setUp();
+
+
